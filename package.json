@@ -1,11 +1,11 @@
 {
-  "name": "Assets-Tracker-api",
+  "name": "server",
   "version": "1.0.0",
-  "description": "Code Nation Assets Tracker",
+  "description": "Assets Tracker api",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server",
+    "start": "node server",
     "dev": "nodemon server"
   },
   "keywords": [],
