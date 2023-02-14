@@ -31,11 +31,6 @@ const Peripherals = sequelize.define(
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Location: {
-            type: DataTypes.STRING(255),
-            defaultValue: 0,
-            allowNull: true,
-        },
         Collection_date: {
             type: DataTypes.DATE,
             allowNull: true,
@@ -95,14 +90,6 @@ const Peripherals = sequelize.define(
             using: "BTREE",
             fields: [
               { name: "State" },
-            ]
-          },
-          {
-            name: "Location",
-            unique: false,
-            using: "BTREE",
-            fields: [
-              { name: "Location" },
             ]
           },
           {

@@ -27,17 +27,8 @@ const Computer = sequelize.define(
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        name: {
-            type: DataTypes.STRING(255),
-            allowNull: true,
-        },
         State: {
             type: DataTypes.STRING(255),
-            allowNull: true,
-        },
-        Location_id: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0,
             allowNull: true,
         },
         Collection_date: {
@@ -99,14 +90,6 @@ const Computer = sequelize.define(
             using: "BTREE",
             fields: [
               { name: "State" },
-            ]
-          },
-          {
-            name: "Location_id",
-            unique: false,
-            using: "BTREE",
-            fields: [
-              { name: "Location_id" },
             ]
           },
           {

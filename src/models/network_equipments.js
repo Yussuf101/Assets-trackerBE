@@ -31,11 +31,6 @@ const Network_Equipments = sequelize.define(
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Location_id: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0,
-            allowNull: true,
-        },
         Collection_date: {
             type: DataTypes.DATE,
             allowNull: true,
@@ -95,14 +90,6 @@ const Network_Equipments = sequelize.define(
             using: "BTREE",
             fields: [
               { name: "State" },
-            ]
-          },
-          {
-            name: "Location_id",
-            unique: false,
-            using: "BTREE",
-            fields: [
-              { name: "Location_id" },
             ]
           },
           {
