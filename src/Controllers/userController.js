@@ -1,5 +1,5 @@
 // CRUD operations using express and Sequalize
-const user = require("../models/user");
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const { sequelize } = require("../config/database");
 const jwt = require("jsonwebtoken");
@@ -10,7 +10,7 @@ exports.createUser = async (req, res)=>{
     try{
         if (req.body.name && req.body.email && req.body.password){
             console.log(req.body)
-            const newUser = new Users(req.body);
+            const newUser = new User(req.body);
             const token = await newUser.generateAuthToken();
             await newUser.save();
             res.status(201).send({user: newUser.name, token})
@@ -33,9 +33,9 @@ exports.createUser = async (req, res)=>{
 exports.login = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await user.filterByCredentials(email, password)
-        const token = user.generateAuthToken()
-        res.status(200).send({ name : user.name, token });
+        const User = await User.filterByCredentials(email, password)
+        const token = User.generateAuthToken()
+        res.status(200).send({ name : User.name, token });
     } catch (error) {
         res.status(400).send({ error: error.message });
     }
@@ -47,8 +47,8 @@ exports.findUser = async (req, res) => {
     try{
       const token = req.header("Authorization").replace("Bearer ", "");
       const decoded = jwt.verify(token, process.env.SECRET);
-      const user = await user.findById(decoded._id);
-      res.status(200).send({ name: user  });
+      const User = await User.findById(decoded._id);
+      res.status(200).send({ name: User  });
     } catch (error) {
       console.log(error);
       res.status(500).send({ error: error.message });
@@ -58,8 +58,8 @@ exports.findUser = async (req, res) => {
 // Delete a user
 exports.userDelete = async (req, res) => {
     try {
-        if (req.user) {
-        await user.findByIdAndDelete({ _id : req.user._id })
+        if (req.User) {
+        await User.findByIdAndDelete({ _id : req.user._id })
         res.status(200).send("User account is deleted")
         } else {
             console.log("login Please")
@@ -76,9 +76,9 @@ exports.userDelete = async (req, res) => {
 //Editing Name, Email and Passwords
 exports.nameEdit = async (req, res) => {
     try{
-        if(req.user) {
-            await Users.findByIdAndUpdate({ _id : req.user._id } ,{ $set : {name: req.body.name} })
-            res.status(200).send(await user.find({name: req.body.name}))
+        if(req.User) {
+            await User.findByIdAndUpdate({ _id : req.user._id } ,{ $set : {name: req.body.name} })
+            res.status(200).send(await User.find({name: req.body.name}))
         } 
     } catch (error) {
             res.status(400).send(console.log("User update failed, please try again"))
@@ -89,9 +89,9 @@ exports.nameEdit = async (req, res) => {
 // emails
 exports.emailEdit = async (req, res) => {
     try{
-        if(req.user) {
-            await Users.findByIdAndUpdate({_id : req.user._id} ,{ $set : {email: req.body.email} })
-            res.status(200).send(await user.find({email: req.body.email}))
+        if(req.User) {
+            await User.findByIdAndUpdate({_id : req.user._id} ,{ $set : {email: req.body.email} })
+            res.status(200).send(await User.find({email: req.body.email}))
         } 
     } catch (error) {
             res.status(400).send(console.log("User update failed, please try again"))
@@ -102,9 +102,9 @@ exports.emailEdit = async (req, res) => {
 // password
 exports.passwordEdit = async (req, res) => {
     try{
-        if(req.user) {
-            await user.findByIdAndUpdate({_id : req.user._id} ,{ $set : {password: req.body.password} })
-            res.status(200).send(await user.find({password: req.body.password}))
+        if(req.User) {
+            await User.findByIdAndUpdate({_id : req.user._id} ,{ $set : {password: req.body.password} })
+            res.status(200).send(await User.find({password: req.body.password}))
         } 
     } catch (error) {
             res.status(400).send(console.log("User update failed, please try again"))
@@ -116,7 +116,7 @@ exports.passwordEdit = async (req, res) => {
 // Listing users for admin purposes
 exports.ListUsers = async (req, res) =>{
     try {
-        const userList = await user.findAll({});
+        const userList = await User.findAll({});
         res.status(200).send(userList);
     } catch (error) {
         res.status(500).send({error:"internal server error"})
