@@ -35,6 +35,16 @@ const User = sequelize.define(
             defaultValue: 0,
             allowNull: true,
         },
+        phone: {
+            type: DataTypes.STRING(255),
+            defaultValue: 0,
+            allowNull: true,
+        },
+        address: {
+            type: DataTypes.STRING(255),
+            defaultValue: 0,
+            allowNull: true,
+        },
         
     },
     {
@@ -80,6 +90,22 @@ const User = sequelize.define(
             using: "BTREE",
             fields: [
               { name: "Location" },
+            ]
+          },
+          {
+            name: "phone",
+            unique: false,
+            using: "BTREE",
+            fields: [
+              { name: "phone" },
+            ]
+          },
+          {
+            name: "address",
+            unique: false,
+            using: "BTREE",
+            fields: [
+              { name: "address" },
             ]
           },
           
