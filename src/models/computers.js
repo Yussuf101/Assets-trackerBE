@@ -17,7 +17,7 @@ const Computer = sequelize.define(
         Assets_category: {
             type: DataTypes.STRING(255),
             allowNull: false,
-            unique: true,
+            unique: false,
         },
         Location:{
             type: DataTypes.STRING(255),
@@ -25,9 +25,33 @@ const Computer = sequelize.define(
         },
         Model: {
             type: DataTypes.STRING(255),
-            allowNull: true,
+            allowNull: false,
         },
         State: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        Assigned_To: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        Assigned_Username: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        Assigned_location: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        Assigned_address: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        Assigned_email: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        Assigned_phone: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
@@ -41,7 +65,7 @@ const Computer = sequelize.define(
         },
     },{
         sequelize,
-        tableName: 'Monitors',
+        tableName: 'Computers',
         timestamps: false,
         indexes: [
           {
@@ -90,6 +114,54 @@ const Computer = sequelize.define(
             using: "BTREE",
             fields: [
               { name: "State" },
+            ]
+          },
+          {
+            name: "Assigned_To",
+            unique: false,
+            using: "BTREE",
+            fields: [
+              { name: "Assigned_To" },
+            ]
+          },
+          {
+            name: "Assigned_To_fullName",
+            unique: false,
+            using: "BTREE",
+            fields: [
+              { name: "Assigned_To_fullName " },
+            ]
+          },
+          {
+            name: "Assigned_To_location",
+            unique: false,
+            using: "BTREE",
+            fields: [
+              { name: "Assigned_To_Location" },
+            ]
+          },
+          {
+            name: "Assigned_To_address",
+            unique: false,
+            using: "BTREE",
+            fields: [
+              { name: "Assigned_To_address" },
+            ]
+          },
+          {
+            name: "Assigend_To_email",
+            unique: false,
+            using: "BTREE",
+            fields: [
+              { name: "Assiged_To_email" },
+            ]
+          },
+          {
+            name: "Assigend_To_phone",
+            unique: false,
+            using: "BTREE",
+            fields: [
+              { name: "Assiged_To_phone" },
             ]
           },
           {

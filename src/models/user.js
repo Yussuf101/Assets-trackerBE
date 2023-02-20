@@ -26,11 +26,7 @@ const User = sequelize.define(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        Firstname: {
-            type: DataTypes.STRING(255),
-            allowNull: true,
-        },
-        Lastname: {
+        Fullname: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
@@ -71,19 +67,11 @@ const User = sequelize.define(
             ]
           },
           {
-            name: "Firstname",
+            name: "fullName",
             unique: false,
             using: "BTREE",
             fields: [
-              { name: "Firstname" },
-            ]
-          },
-          {
-            name: "Lastname",
-            unique: false,
-            using: "BTREE",
-            fields: [
-              { name: "Lastname" },
+              { name: "fullName" },
             ]
           },
           {
