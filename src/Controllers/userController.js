@@ -22,7 +22,7 @@ exports.createUser = async (req, res)=>{
         if (error.code === 10000){
             res.status(409).send({error:"Email is already registered"})
         }else{
-            console.log("error in createUser")
+            console.log("error in creating User")
             res.status(500).send({error:"Internal Server error"})
             console.log(error)
         }
@@ -86,7 +86,7 @@ exports.nameEdit = async (req, res) => {
     }
 }
 
-// emails
+// edit emails
 exports.emailEdit = async (req, res) => {
     try{
         if(req.User) {
@@ -99,7 +99,7 @@ exports.emailEdit = async (req, res) => {
     }
 }
 
-// password
+// edit password
 exports.passwordEdit = async (req, res) => {
     try{
         if(req.User) {
@@ -113,7 +113,7 @@ exports.passwordEdit = async (req, res) => {
 }
 
 
-// Listing users for admin purposes
+// Listing users 
 exports.ListUsers = async (req, res) =>{
     try {
         const userList = await User.findAll({});
