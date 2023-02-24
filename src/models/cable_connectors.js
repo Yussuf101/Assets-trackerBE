@@ -35,23 +35,23 @@ const Cable_Connectors = sequelize.define(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        Assigned_Username: {
+        Assigner_fullname: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_location: {
+        Assigner_location: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_address: {
+        Assigner_address: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_email: {
+        Assigner_email: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_phone: {
+        Assigner_phone: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
@@ -65,7 +65,7 @@ const Cable_Connectors = sequelize.define(
         },
     },{
         sequelize,
-        tableName: 'Monitors',
+        tableName: 'Cable Connectors',
         timestamps: false,
         indexes: [
             {
@@ -125,43 +125,43 @@ const Cable_Connectors = sequelize.define(
               ]
             },
             {
-              name: "Assigned_To_fullName",
+              name: "Assigner_fullName",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assigned_To_fullName " },
+                { name: "Assigner_fullName " },
               ]
             },
             {
-              name: "Assigned_To_location",
+              name: "Assigner_location",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assigned_To_Location" },
+                { name: "Assigner_Location" },
               ]
             },
             {
-              name: "Assigned_To_address",
+              name: "Assigner_address",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assigned_To_address" },
+                { name: "Assigner_address" },
               ]
             },
             {
-              name: "Assigend_To_email",
+              name: "Assigenr_email",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiged_To_email" },
+                { name: "Assiger_email" },
               ]
             },
             {
-              name: "Assigend_To_phone",
+              name: "Assigenr_phone",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiged_To_phone" },
+                { name: "Assiger_phone" },
               ]
             },
             {

@@ -35,7 +35,7 @@ const Network_Equipments = sequelize.define(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        Assigned_Username: {
+        Assigned_fullname: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
@@ -125,43 +125,43 @@ const Network_Equipments = sequelize.define(
               ]
             },
             {
-              name: "Assigned_To_fullName",
+              name: "Assigner_fullName",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assigned_To_fullName " },
+                { name: "Assigner_fullName " },
               ]
             },
             {
-              name: "Assigned_To_location",
+              name: "Assigner_location",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assigned_To_Location" },
+                { name: "Assigner_Location" },
               ]
             },
             {
-              name: "Assigned_To_address",
+              name: "Assigner_address",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assigned_To_address" },
+                { name: "Assigner_address" },
               ]
             },
             {
-              name: "Assigend_To_email",
+              name: "Assigenr_email",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiged_To_email" },
+                { name: "Assiger_email" },
               ]
             },
             {
-              name: "Assigend_To_phone",
+              name: "Assigenr_phone",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiged_To_phone" },
+                { name: "Assiger_phone" },
               ]
             },
             {

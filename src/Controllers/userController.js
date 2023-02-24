@@ -1,5 +1,5 @@
 // CRUD operations using express and Sequalize
-const User = require("../models/user");
+const Users = require("../models/users");
 const bcrypt = require("bcrypt");
 const { sequelize } = require("../config/database");
 const jwt = require("jsonwebtoken");
@@ -7,20 +7,21 @@ const jwt = require("jsonwebtoken");
 
 //Creating a new user
 exports.createUser = async (req, res)=>{
-    try{
+    try
+    {
+        const createUser = await Users.create(req.body)
+        const token = await createUser.generateAuthToken();
+        await createUser.save();
         if (req.body.name && req.body.email && req.body.password){
             console.log(req.body)
             const newUser = new User(req.body);
             const token = await newUser.generateAuthToken();
             await newUser.save();
-            res.status(201).send({user: newUser.name, token})
-        }else{
-            console.log("Please enter Name, Email and or Password")
-            res.status(400).send({error:" need name, email and password entered please"})
+            res.status(201).send({user: newUser.username, token})
         }
     }catch(error){
-        if (error.code === 10000){
-            res.status(409).send({error:"Email is already registered"})
+        if (error.original.code === 10062){
+            res.status(409).send({error:"User already registered"})
         }else{
             console.log("error in creating User")
             res.status(500).send({error:"Internal Server error"})
