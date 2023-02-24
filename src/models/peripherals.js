@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../config/database");
+const { connection } = require("../config/database");
 
-const Peripherals = sequelize.define(
+const Peripherals = connection.define(
     "Peripherals",
     {
         Asset_id: {
@@ -64,7 +64,7 @@ const Peripherals = sequelize.define(
             allowNull: true,
         },
     }, {
-        sequelize,
+      connection,
         tableName: 'Peripherals',
         timestamps: false,
         indexes: [

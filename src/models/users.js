@@ -1,9 +1,9 @@
 
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../config/database");
+const { connection } = require("../config/database");
 
 
-const Users = sequelize.define(
+const Users = connection.define(
     "Users",
     {
         user_id: {
@@ -48,7 +48,7 @@ const Users = sequelize.define(
         
     },
     {
-        sequelize,
+      connection,
         tableName: 'Users',
         timestamps: false,
         indexes: [

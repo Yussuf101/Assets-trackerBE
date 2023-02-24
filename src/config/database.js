@@ -3,11 +3,11 @@ const { Sequelize } = require("sequelize");
 
 let connection;
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "Assets-Tracker") {
 
     module.exports.connection = new Sequelize(`${process.env.DATABASE_URL}?sslmode=require`, {
         url: process.env.DATABASE_URI,  
-        dialect: 'postgres',
+        dialect: 'mysql',
         dialectOptions: {
             ssl: {
                 rejectUnauthorized: false,
@@ -29,4 +29,4 @@ if (process.env.NODE_ENV === "production") {
     );
 }
 
- module.exports = connection;
+//  module.exports = connection;

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../config/database");
+const { connection } = require("../config/database");
 
-const Network_Equipments = sequelize.define(
+const Network_Equipments = connection.define(
     "Network_Equipments",
     {
         Asset_id: {
@@ -64,7 +64,7 @@ const Network_Equipments = sequelize.define(
             allowNull: true,
         },
     },{
-        sequelize,
+      connection,
         tableName: 'Network_Equipments',
         timestamps: false,
         indexes: [

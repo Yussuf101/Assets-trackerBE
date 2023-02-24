@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../config/database");
+const { connection} = require("../config/database");
 
-const Cable_Connectors = sequelize.define(
+const Cable_Connectors = connection.define(
     "Cable_Connectors",
     {
         Asset_id: {
@@ -64,7 +64,7 @@ const Cable_Connectors = sequelize.define(
             allowNull: true,
         },
     },{
-        sequelize,
+      connection,
         tableName: 'Cable Connectors',
         timestamps: false,
         indexes: [

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../config/database");
+const { connection } = require("../config/database");
 
-const Locations = sequelize.define(
+const Locations = connection.define(
     "Locations",
     {
         Location_id: {
@@ -15,7 +15,7 @@ const Locations = sequelize.define(
         },
     },
     {
-        sequelize,
+      connection,
         tableName: 'Location',
         timestamps: false,
         indexes: [
