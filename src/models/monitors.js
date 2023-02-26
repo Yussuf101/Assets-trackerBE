@@ -19,7 +19,7 @@ const Monitors = connection.define(
             allowNull: false,
             unique: false,
         },
-        Location:{
+        Asset_Location:{
             type: DataTypes.STRING(255),
             allowNull: false,
         },
@@ -35,23 +35,23 @@ const Monitors = connection.define(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        Assigned_fullname: {
+        Assigner_fullname: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_location: {
+        Assigner_location: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_address: {
+        Assigner_address: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_email: {
+        Assigner_email: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_phone: {
+        Assigner_phone: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
@@ -85,11 +85,11 @@ const Monitors = connection.define(
               ]
             },
             {
-              name: "Asset_Category",
-              unique: true,
+              name: "Assets_category",
+              unique: false,
               using: "BTREE",
               fields: [
-                { name: "Asset_Category" },
+                { name: "Assets_category" },
               ]
             },
             {
@@ -125,11 +125,11 @@ const Monitors = connection.define(
               ]
             },
             {
-              name: "Assigner_fullName",
+              name: "Assigner_fullname",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assigner_fullName " },
+                { name: "Assigner_fullname" },
               ]
             },
             {
@@ -149,19 +149,19 @@ const Monitors = connection.define(
               ]
             },
             {
-              name: "Assigenr_email",
+              name: "Assigner_email",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiger_email" },
+                { name: "Assigner_email" },
               ]
             },
             {
-              name: "Assigenr_phone",
+              name: "Assigner_phone",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiger_phone" },
+                { name: "Assigner_phone" },
               ]
             },
             {

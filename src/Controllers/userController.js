@@ -5,122 +5,199 @@ const { sequelize } = require("../config/database");
 const jwt = require("jsonwebtoken");
 
 
-//Creating a new user
-exports.createUser = async (req, res)=>{
+//--------Creating/register/signup a new user------------------
+exports.addUser = async (req, res) =>
+{
     try
     {
-        const createUser = await Users.create(req.body)
-        const token = await createUser.generateAuthToken();
-        await createUser.save();
-        if (req.body.name && req.body.email && req.body.password){
-            console.log(req.body)
-            const newUser = new User(req.body);
-            const token = await newUser.generateAuthToken();
-            await newUser.save();
-            res.status(201).send({user: newUser.username, token})
+        let newUser = await Users.create(req.body)
+        const token = jwt.sign({ "user_id": newUser.user_id }, process.env.SECRET);
+        res.status(201).send({ message: "new user is created", username: newUser.username, email:newUser.email, phone: newUser.phone,  token: token });
+    } catch (error)
+    {
+        if (error.original.errno === 1062)
+        {
+            res.status(409).send({ error: "User already exists!" });
         }
-    }catch(error){
-        if (error.original.code === 10062){
-            res.status(409).send({error:"User already registered"})
-        }else{
-            console.log("error in creating User")
-            res.status(500).send({error:"Internal Server error"})
+        else
+        {
             console.log(error)
+            res.status(500).send({ error: "Error in creating Acount" });
         }
-    }
+    };
 }
 
-// Login 
-exports.login = async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const User = await User.filterByCredentials(email, password)
-        const token = User.generateAuthToken()
-        res.status(200).send({ name : User.name, token });
-    } catch (error) {
+
+//--------------- Login ------------------
+
+exports.login = async (req, res) =>
+{
+    console.log(req.body)
+    try
+    {
+        const user = await Users.findOne({ where: { username: req.body.username } })
+        if (user)
+        {
+            const password_valid = await bcrypt.compare(req.body.password, user.password)
+            if (password_valid)
+            {
+                const token = jwt.sign({ "user_id": user.user_id }, process.env.SECRET);
+                res.status(200).json({ username: user.username, email:user.email, phone: user.phone, token: token });
+            } else
+            {
+                res.status(400).json({ error: "Incorrect Password, please try again" });
+            }
+        } else
+        {
+            res.status(404).json({ error: "Acount does not exist, please register first" });
+        }
+    } catch (error)
+    {
+        console.log(error)
         res.status(400).send({ error: error.message });
     }
-}
+};
 
 
-// Find a user
-exports.findUser = async (req, res) => {
-    try{
-      const token = req.header("Authorization").replace("Bearer ", "");
-      const decoded = jwt.verify(token, process.env.SECRET);
-      const User = await User.findById(decoded._id);
-      res.status(200).send({ name: User  });
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({ error: error.message });
+//------------ Find a user-----------------
+exports.findUsers = async (req, res) => {
+    
+    try
+    {
+        const list = await Users.findAll()
+        res.status(200).send(list);
     }
-  }
-
-// Delete a user
-exports.userDelete = async (req, res) => {
-    try {
-        if (req.User) {
-        await User.findByIdAndDelete({ _id : req.user._id })
-        res.status(200).send("User account is deleted")
-        } else {
-            console.log("login Please")
-            res.status(400).send({error: "request failed, login please"})
-        }
-    } catch (error) {
-        console.log("error in deleting user")
-        res.status(500).send({error:"internal server error"})
+    catch (error)
+    {
         console.log(error)
     }
 }
 
+// --------------Deleting a user--------------
+exports.deleteUser = async (req, res) =>
+{
+    try
+    {
+        if (req.user)
+        {
+            console.log(`${req.user.username}  deleted Account`);
+            await Users.destroy({ where: { user_id: req.user.user_id } })
+            res.status(200).send(await Users.findAll());
+        }
+        else
+        {
+            console.log("Nothing to delete");
+            res.status(400).send({ error: "request failed" });
+        }
+    } catch (e)
+    {
+        console.log("error can not deleter user");
+        res.status(500).send({ error: "internal error" });
+        console.log(e);
+    }
+};
 
-//Editing Name, Email and Passwords
+
+//---------Editing Name, Email, phone  and Passwords---------------
 exports.nameEdit = async (req, res) => {
     try{
-        if(req.User) {
-            await User.findByIdAndUpdate({ _id : req.user._id } ,{ $set : {name: req.body.name} })
-            res.status(200).send(await User.find({name: req.body.name}))
-        } 
+        if(req.user && req.body.name) {
+            await Users.update({ name: req.body.name }, {
+                where: {
+                    user_id: req.user.user_id
+                }
+            });
+            res.status(200).send(await Users.findOne( { where:{name: req.body.name} }));
+        } else if (!req.body.name) {
+            res.status(400).send({error: `use the "username" key`});
+        }
     } catch (error) {
-            res.status(400).send(console.log("User update failed, please try again"))
-            console.log(error)
+        if(error.original.errno === 1062) {
+            res.status(500).send({error: 1062});
+    
+        } else {
+            res.status(500).send({error: "Failed to update username"});
+            console.log(error);
+        }
     }
-}
+};
 
-// edit emails
-exports.emailEdit = async (req, res) => {
+//---------- edit emails---------------
+exports.editEmail = async (req, res) => {
     try{
-        if(req.User) {
-            await User.findByIdAndUpdate({_id : req.user._id} ,{ $set : {email: req.body.email} })
-            res.status(200).send(await User.find({email: req.body.email}))
-        } 
+        if(req.user && req.body.email) {
+             await Users.update({ email: req.body.email }, {
+                where: {
+                  user_id: req.user.user_id
+                }
+            });
+            res.status(200).send(await Users.findOne({where: {email: req.body.email}}));
+        } else if (!req.body.email){
+            res.status(400).send({error: `use the "email" key`});
+        }
     } catch (error) {
-            res.status(400).send(console.log("User update failed, please try again"))
-            console.log(error)
-    }
-}
+            if(error.original.errno === 1062) {
+                res.status(500).send({error: 1062});
+        
+            } else {
+                res.status(500).send({error: "Failed to update users email"});
+                console.log(error);
+            }
+            
+        }
+};
+// -------------edit password ------------------
 
-// edit password
-exports.passwordEdit = async (req, res) => {
+exports.editPassword = async (req, res) => {
     try{
-        if(req.User) {
-            await User.findByIdAndUpdate({_id : req.user._id} ,{ $set : {password: req.body.password} })
-            res.status(200).send(await User.find({password: req.body.password}))
-        } 
+        if(req.user && req.body.password) {
+            await Users.update({ password: req.body.password }, {
+                where: {
+                  user_id: req.user.user_id
+                }
+            });
+            res.status(200).send(await Users.findOne({where: {password: req.body.password}}));
+        } else if (!req.body.password){
+            res.status(400).send({error: `use the "password" key`});
+        }
     } catch (error) {
-            res.status(400).send(console.log("User update failed, please try again"))
-            console.log(error)
+        res.status(500).send(console.log("Failed to update password"));
+        console.log(error);
     }
-}
+};
+// --------------- edit phone--------------------
 
+exports.editPhone = async (req, res) => {
+    try{
+        if(req.user && req.body.phone) {
+            await Users.update({ phone: req.body.phone }, {
+                where: {
+                  user_id: req.user.user_id
+                }
+            });
+            res.status(200).send(await Users.findOne({where: {user_id: req.user.user_id}}));
+        } else if (!req.body.phone){
+            res.status(400).send({error: `use the "phone" key`});
+        }
+    } catch (error) {
+        res.status(500).send(console.log("Failed to update phonenumber"));
+        console.log(error);
+    }
+};
 
 // Listing users 
-exports.ListUsers = async (req, res) =>{
+exports.listUsers = async (req, res) =>{
     try {
-        const userList = await User.findAll({});
+        const userList = await Users.findAll({});
+        console.log("inside userList");
         res.status(200).send(userList);
     } catch (error) {
         res.status(500).send({error:"internal server error"})
         console.log(error)
     }
 }
+
+
+
+
+

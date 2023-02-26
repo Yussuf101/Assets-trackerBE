@@ -19,7 +19,7 @@ const Network_Equipments = connection.define(
             allowNull: false,
             unique: false,
         },
-        Location:{
+        Assets_Location:{
             type: DataTypes.STRING(255),
             allowNull: false,
         },
@@ -35,23 +35,23 @@ const Network_Equipments = connection.define(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        Assigned_fullname: {
+        Assigner_fullname: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_location: {
+        Assigner_location: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_address: {
+        Assigner_address: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_email: {
+        Assigner_email: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        Assigned_phone: {
+        Assigner_phone: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
@@ -85,19 +85,19 @@ const Network_Equipments = connection.define(
               ]
             },
             {
-              name: "Asset_Category",
-              unique: true,
-              using: "BTREE",
-              fields: [
-                { name: "Asset_Category" },
-              ]
-            },
-            {
-              name: "Asset_Location",
+              name: "Assets_Category",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Asset_Location" },
+                { name: "Assets_Category" },
+              ]
+            },
+            {
+              name: "Assets_Location",
+              unique: false,
+              using: "BTREE",
+              fields: [
+                { name: "Assets_Location" },
               ]
             },
             {
@@ -125,11 +125,11 @@ const Network_Equipments = connection.define(
               ]
             },
             {
-              name: "Assigner_fullName",
+              name: "Assigner_fullname",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assigner_fullName " },
+                { name: "Assigner_fullname" },
               ]
             },
             {
@@ -149,19 +149,19 @@ const Network_Equipments = connection.define(
               ]
             },
             {
-              name: "Assigenr_email",
+              name: "Assigner_email",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiger_email" },
+                { name: "Assigner_email" },
               ]
             },
             {
-              name: "Assigenr_phone",
+              name: "Assigner_phone",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiger_phone" },
+                { name: "Assigner_phone" },
               ]
             },
             {

@@ -15,12 +15,12 @@ const Users = connection.define(
         username: {
             type: DataTypes.STRING(255),
             allowNull: false,
-            unique: true,
+            unique: "username",
         },
         email: {
             type: DataTypes.STRING(255),
             allowNull: false,
-            unique: true,
+            unique: "email",
         },
         password: {
             type: DataTypes.STRING(255),
@@ -28,21 +28,18 @@ const Users = connection.define(
         },
         Fullname: {
             type: DataTypes.STRING(255),
-            allowNull: true,
+            allowNull: false,
         },
         location: {
             type: DataTypes.STRING(255),
-            defaultValue: 0,
-            allowNull: true,
+            allowNull: false,
         },
         phone: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
             allowNull: true,
         },
         address: {
             type: DataTypes.STRING(255),
-            defaultValue: 0,
             allowNull: true,
         },
         

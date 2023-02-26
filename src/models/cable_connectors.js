@@ -7,9 +7,10 @@ const Cable_Connectors = connection.define(
         Asset_id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
+            allowNull: false,
             primaryKey: true,
         },
-        Asset_label: {
+        Assets_label: {
             type: DataTypes.STRING(255),
             allowNull: false,
             unique: true,
@@ -19,7 +20,7 @@ const Cable_Connectors = connection.define(
             allowNull: false,
             unique: false,
         },
-        Location:{
+        Assets_Location:{
             type: DataTypes.STRING(255),
             allowNull: false,
         },
@@ -77,27 +78,27 @@ const Cable_Connectors = connection.define(
               ]
             },
             {
-              name: "Asset_label",
+              name: "Assets_label",
               unique: true,
               using: "BTREE",
               fields: [
-                { name: "Asset_label" },
+                { name: "Assets_label" },
               ]
             },
             {
-              name: "Asset_Category",
-              unique: true,
-              using: "BTREE",
-              fields: [
-                { name: "Asset_Category" },
-              ]
-            },
-            {
-              name: "Asset_Location",
+              name: "Assets_category",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Asset_Location" },
+                { name: "Assets_category" },
+              ]
+            },
+            {
+              name: "Assets_Location",
+              unique: false,
+              using: "BTREE",
+              fields: [
+                { name: "Assets_Location" },
               ]
             },
             {
@@ -125,11 +126,11 @@ const Cable_Connectors = connection.define(
               ]
             },
             {
-              name: "Assigner_fullName",
+              name: "Assigner_fullname",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assigner_fullName " },
+                { name: "Assigner_fullname" },
               ]
             },
             {
@@ -149,19 +150,19 @@ const Cable_Connectors = connection.define(
               ]
             },
             {
-              name: "Assigenr_email",
+              name: "Assigner_email",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiger_email" },
+                { name: "Assigner_email" },
               ]
             },
             {
-              name: "Assigenr_phone",
+              name: "Assigner_phone",
               unique: false,
               using: "BTREE",
               fields: [
-                { name: "Assiger_phone" },
+                { name: "Assigner_phone" },
               ]
             },
             {
