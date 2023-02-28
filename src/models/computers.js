@@ -18,7 +18,7 @@ const Computers = connection.define(
       Assets_category: {
           type: DataTypes.STRING(255),
           allowNull: false,
-          unique: false,
+          unique: "Computer",
       },
       Assets_Location:{
           type: DataTypes.STRING(255),
@@ -87,7 +87,7 @@ const Computers = connection.define(
           },
           {
             name: "Assets_Category",
-            unique: false,
+            unique: "Computer",
             using: "BTREE",
             fields: [
               { name: "Assets_Category" },

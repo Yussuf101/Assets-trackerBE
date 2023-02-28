@@ -17,7 +17,7 @@ const Monitors = connection.define(
         Assets_category: {
             type: DataTypes.STRING(255),
             allowNull: false,
-            unique: false,
+            unique: "Monitor",
         },
         Asset_Location:{
             type: DataTypes.STRING(255),
@@ -86,7 +86,7 @@ const Monitors = connection.define(
             },
             {
               name: "Assets_category",
-              unique: false,
+              unique: "Monitor",
               using: "BTREE",
               fields: [
                 { name: "Assets_category" },

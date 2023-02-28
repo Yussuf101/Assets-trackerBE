@@ -1,12 +1,15 @@
 // CRUD operations using express and Sequalize
+const express = require('express');
 const Users = require("../models/users");
 const bcrypt = require("bcrypt");
 const { sequelize } = require("../config/database");
 const jwt = require("jsonwebtoken");
-
+const { sign } = require('crypto');
+const router = express.Router();
 
 //--------Creating/register/signup a new user------------------
-exports.addUser = async (req, res) =>
+
+addUser = async (req, res) =>
 {
     try
     {
@@ -30,7 +33,7 @@ exports.addUser = async (req, res) =>
 
 //--------------- Login ------------------
 
-exports.login = async (req, res) =>
+login = async (req, res) =>
 {
     console.log(req.body)
     try
@@ -60,7 +63,8 @@ exports.login = async (req, res) =>
 
 
 //------------ Find a user-----------------
-exports.findUsers = async (req, res) => {
+
+findUsers = async (req, res) => {
     
     try
     {
@@ -74,7 +78,8 @@ exports.findUsers = async (req, res) => {
 }
 
 // --------------Deleting a user--------------
-exports.deleteUser = async (req, res) =>
+
+deleteUser = async (req, res) =>
 {
     try
     {
@@ -99,7 +104,8 @@ exports.deleteUser = async (req, res) =>
 
 
 //---------Editing Name, Email, phone  and Passwords---------------
-exports.nameEdit = async (req, res) => {
+
+nameEdit = async (req, res) => {
     try{
         if(req.user && req.body.name) {
             await Users.update({ name: req.body.name }, {
@@ -123,7 +129,8 @@ exports.nameEdit = async (req, res) => {
 };
 
 //---------- edit emails---------------
-exports.editEmail = async (req, res) => {
+
+editEmail = async (req, res) => {
     try{
         if(req.user && req.body.email) {
              await Users.update({ email: req.body.email }, {
@@ -148,7 +155,7 @@ exports.editEmail = async (req, res) => {
 };
 // -------------edit password ------------------
 
-exports.editPassword = async (req, res) => {
+editPassword = async (req, res) => {
     try{
         if(req.user && req.body.password) {
             await Users.update({ password: req.body.password }, {
@@ -167,7 +174,7 @@ exports.editPassword = async (req, res) => {
 };
 // --------------- edit phone--------------------
 
-exports.editPhone = async (req, res) => {
+editPhone = async (req, res) => {
     try{
         if(req.user && req.body.phone) {
             await Users.update({ phone: req.body.phone }, {
@@ -186,7 +193,7 @@ exports.editPhone = async (req, res) => {
 };
 
 // Listing users 
-exports.listUsers = async (req, res) =>{
+listUsers = async (req, res) =>{
     try {
         const userList = await Users.findAll({});
         console.log("inside userList");
@@ -197,7 +204,22 @@ exports.listUsers = async (req, res) =>{
     }
 }
 
+//-------------- Signup
+
+signUp = async (req, res)=>{
+    
+
+  }
 
 
-
-
+module.exports = {
+    listUsers,
+    addUser,
+    deleteUser,
+    findUsers,
+    nameEdit,
+    editPhone,
+    editEmail,
+    editPassword,
+    login
+}

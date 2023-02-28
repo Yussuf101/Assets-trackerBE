@@ -1,32 +1,34 @@
 const { Router } = require("express")
-const { addUser, userDelete, login, nameEdit, emailEdit, passwordEdit, findUsers } = require("../Controllers/userController")
-const { hashPassword, tokenCheck } = require("../middleware/index")
+const { addUser, userDelete, login, nameEdit, emailEdit, passwordEdit, findUsers } = require("../Controllers/userController");
 const userRouter = Router();
+const usersRoutes = userRouter
+
+const { hashPassword, tokenCheck } = require("../middleware/index")
 
 ///---------login and register routes---------------------
 
 //--get
-userRouter.get("/user/login", login);
-userRouter.get("/user/signup", [hashPassword], addUser);
+
+// userRouter.get("/api/user/login", login);
+// userRouter.get("/api/user/signup", [hashPassword], addUser);
 //-- post
-userRouter.post("/user/login", login);
-userRouter.post("/user/signup", [hashPassword], addUser);
+usersRoutes.post("/user/login", login);
+// usersRoutes.post("/user/signup", [hashPassword], addUser);
 
 //------------------ list users----------------------------
-userRouter.get("/user", findUsers);
+usersRoutes.get("/user", findUsers);
 
 
 
 ///-----------------update user info-----------------------
-userRouter.put("/user/editname", [tokenCheck],nameEdit)
-userRouter.put("/user/editemail", [tokenCheck], emailEdit)
-userRouter.put("/user/editpassword", [hashPassword, tokenCheck], passwordEdit)
-userRouter.put("/user/editphone", [tokenCheck], editPhone)
+// usersRoutes.put("/user/editname", [tokenCheck],nameEdit)
+// usersRoutes.put("/user/editemail", [tokenCheck], emailEdit)
+// usersRoutes.put("/user/editpassword", [hashPassword, tokenCheck], passwordEdit)
+// usersRoutes.put("/user/editphone", [tokenCheck], editPhone)
 
 
 
 // // ---------------------- delete user ----------------------
-userRouter.delete("/user", [tokenCheck], userDelete);
+// usersRoutes.delete("/user", [tokenCheck], userDelete);
 
-
-module.exports = userRouter
+module.exports = usersRoutes

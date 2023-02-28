@@ -18,7 +18,7 @@ const Cable_Connectors = connection.define(
         Assets_category: {
             type: DataTypes.STRING(255),
             allowNull: false,
-            unique: false,
+            unique: "Cable Connector",
         },
         Assets_Location:{
             type: DataTypes.STRING(255),
@@ -87,7 +87,7 @@ const Cable_Connectors = connection.define(
             },
             {
               name: "Assets_category",
-              unique: false,
+              unique: "Cable Connector",
               using: "BTREE",
               fields: [
                 { name: "Assets_category" },

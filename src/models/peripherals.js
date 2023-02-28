@@ -17,7 +17,7 @@ const Peripherals = connection.define(
         Assets_category: {
             type: DataTypes.STRING(255),
             allowNull: false,
-            unique: false,
+            unique: "Peripherals",
         },
         Asset_Location:{
             type: DataTypes.STRING(255),
@@ -86,7 +86,7 @@ const Peripherals = connection.define(
             },
             {
               name: "Assets_Category",
-              unique: false,
+              unique: "Peripherals",
               using: "BTREE",
               fields: [
                 { name: "Assets_Category" },
