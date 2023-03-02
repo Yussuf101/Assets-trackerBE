@@ -9,11 +9,11 @@ const { hashPassword, tokenCheck } = require("../middleware/index")
 
 //--get
 
-// userRouter.get("/api/user/login", login);
-// userRouter.get("/api/user/signup", [hashPassword], addUser);
+userRouter.get("/user/login", login);
+userRouter.get("/user/signup", [hashPassword], addUser);
 //-- post
 usersRoutes.post("/user/login", login);
-// usersRoutes.post("/user/signup", [hashPassword], addUser);
+usersRoutes.post("/user/signup", [hashPassword], addUser);
 
 //------------------ list users----------------------------
 usersRoutes.get("/user", findUsers);
@@ -29,6 +29,6 @@ usersRoutes.get("/user", findUsers);
 
 
 // // ---------------------- delete user ----------------------
-// usersRoutes.delete("/user", [tokenCheck], userDelete);
+// usersRoutes.delete("/user", [tokenCheck], userDelete);  
 
 module.exports = usersRoutes

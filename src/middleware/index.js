@@ -3,7 +3,7 @@ const Users = require("../models/users");
 const jwt = require("jsonwebtoken");
 
 // encrypting the passwords via hashing 
-exports = hashPassword = async (req, res, next) => {
+const hashPassword = async (req, res, next) => {
     try {
         if ("password" in req.body) {
             const hashedPassword = await bcrypt.hash(req.body.password, 8)
@@ -19,7 +19,7 @@ exports = hashPassword = async (req, res, next) => {
 
 // creating the Toke for verifications
 
-exports.tokenCheck = async (req, res, next) => {
+const tokenCheck = async (req, res, next) => {
     try {
         const token = req.header("Authorization").replace("Bearer ", "");
         const decoded = jwt.verify(token, process.env.SECRET);
@@ -37,3 +37,8 @@ exports.tokenCheck = async (req, res, next) => {
         res.status(403).send({ error: "Please log in" });
     }
 };
+
+module.exports = {
+    tokenCheck,
+    hashPassword
+}

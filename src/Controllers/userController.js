@@ -6,10 +6,11 @@ const { sequelize } = require("../config/database");
 const jwt = require("jsonwebtoken");
 const { sign } = require('crypto');
 const router = express.Router();
+const userRouter = router
 
 //--------Creating/register/signup a new user------------------
 
-addUser = async (req, res) =>
+const addUser = async (req, res) =>
 {
     try
     {
@@ -33,7 +34,7 @@ addUser = async (req, res) =>
 
 //--------------- Login ------------------
 
-login = async (req, res) =>
+const login = async (req, res) =>
 {
     console.log(req.body)
     try
@@ -64,7 +65,7 @@ login = async (req, res) =>
 
 //------------ Find a user-----------------
 
-findUsers = async (req, res) => {
+const findUsers = async (req, res) => {
     
     try
     {
@@ -79,7 +80,7 @@ findUsers = async (req, res) => {
 
 // --------------Deleting a user--------------
 
-deleteUser = async (req, res) =>
+const deleteUser = async (req, res) =>
 {
     try
     {
@@ -105,7 +106,7 @@ deleteUser = async (req, res) =>
 
 //---------Editing Name, Email, phone  and Passwords---------------
 
-nameEdit = async (req, res) => {
+const nameEdit = async (req, res) => {
     try{
         if(req.user && req.body.name) {
             await Users.update({ name: req.body.name }, {
@@ -130,7 +131,7 @@ nameEdit = async (req, res) => {
 
 //---------- edit emails---------------
 
-editEmail = async (req, res) => {
+const editEmail = async (req, res) => {
     try{
         if(req.user && req.body.email) {
              await Users.update({ email: req.body.email }, {
@@ -155,7 +156,7 @@ editEmail = async (req, res) => {
 };
 // -------------edit password ------------------
 
-editPassword = async (req, res) => {
+const editPassword = async (req, res) => {
     try{
         if(req.user && req.body.password) {
             await Users.update({ password: req.body.password }, {
@@ -174,7 +175,7 @@ editPassword = async (req, res) => {
 };
 // --------------- edit phone--------------------
 
-editPhone = async (req, res) => {
+const editPhone = async (req, res) => {
     try{
         if(req.user && req.body.phone) {
             await Users.update({ phone: req.body.phone }, {
@@ -193,7 +194,8 @@ editPhone = async (req, res) => {
 };
 
 // Listing users 
-listUsers = async (req, res) =>{
+
+const listUsers = async (req, res) =>{
     try {
         const userList = await Users.findAll({});
         console.log("inside userList");
@@ -206,8 +208,12 @@ listUsers = async (req, res) =>{
 
 //-------------- Signup
 
-signUp = async (req, res)=>{
-    
+const signUp = async (req, res, next)=>{
+    req.users.email? res.status(201).json({
+        msg: "you have successfully signed up", email: req.users.email
+    }): res.status(401).json ({
+        msg: " This email is already in use"
+    });
 
   }
 
@@ -221,5 +227,6 @@ module.exports = {
     editPhone,
     editEmail,
     editPassword,
-    login
+    login,
+    signUp
 }

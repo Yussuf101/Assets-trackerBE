@@ -11,7 +11,7 @@ const Cable_Connectors = connection.define(
             primaryKey: true,
         },
         Assets_label: {
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING(),
             allowNull: false,
             unique: true,
         },
