@@ -13,6 +13,11 @@ const Locations = connection.define(
             type: DataTypes.STRING(255),
             require: true,
         },
+        User_id: {
+          type: DataTypes.INTEGER,
+          foreignKEy: true,
+          unique: "User_id",
+      },
     },
     {
       connection,
@@ -33,6 +38,14 @@ const Locations = connection.define(
             using: "BTREE",
             fields: [
               { name: "Location_name" },
+            ]
+          },
+          {
+            name: "PRIMARY",
+            unique: "User_id",
+            using: "BTREE",
+            fields: [
+              { name: "User_id" },
             ]
           },
         ]

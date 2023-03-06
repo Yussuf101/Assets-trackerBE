@@ -11,9 +11,9 @@ const Cable_Connectors = connection.define(
             primaryKey: true,
         },
         Assets_label: {
-            type: DataTypes.STRING(),
+            type: DataTypes.STRING(255),
             allowNull: false,
-            unique: true,
+            unique: "Asset_label",
         },
         Assets_category: {
             type: DataTypes.STRING(255),
@@ -28,6 +28,19 @@ const Cable_Connectors = connection.define(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
+        Computer_id: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          foreignKey: true,
+          unique:"Computer_id",
+      },
+        Monitor_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        unique:"Monitor_id",
+
+    },
         State: {
             type: DataTypes.STRING(255),
             allowNull: false,
@@ -107,6 +120,21 @@ const Cable_Connectors = connection.define(
               using: "BTREE",
               fields: [
                 { name: "Model" },
+              ]
+            },
+            {
+              name: "PRIMARY",
+              unique: "Computer_id",
+              using: "BTREE",
+              fields: [
+                { name: "Computer_id" },
+              ]
+            }, {
+              name: "PRIMARY",
+              unique: "Monitor_id",
+              using: "BTREE",
+              fields: [
+                { name: "Monitor_id" },
               ]
             },
             {

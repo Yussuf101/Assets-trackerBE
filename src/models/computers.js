@@ -11,7 +11,7 @@ const Computers = connection.define(
           primaryKey: true,
       },
       Asset_label: {
-          type: DataTypes.STRING(255),
+          type: DataTypes.STRING(25),
           allowNull: false,
           unique: true,
       },
@@ -28,6 +28,18 @@ const Computers = connection.define(
           type: DataTypes.STRING(255),
           allowNull: false,
       },
+      User_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: "User_id",
+        foreignKey: true,
+      },
+      Location_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: "Location_id",
+        foreignKey: true,
+       },    
       State: {
           type: DataTypes.STRING(255),
           allowNull: false,
@@ -110,6 +122,22 @@ const Computers = connection.define(
             ]
           },
           {
+            name: "PRIMARY",
+            unique: "User_id",
+            using: "BTREE",
+            fields: [
+              { name: "User_id" },
+            ]
+          },
+          {
+            name: "PRIMARY",
+            unique: "Location_id",
+            using: "BTREE",
+            fields: [
+              { name: "Location_id" },
+            ]
+          },
+          {
             name: "State",
             unique: false,
             using: "BTREE",
@@ -181,7 +209,6 @@ const Computers = connection.define(
               { name: "Return_date" },
             ]
           },
-
       ]
   }
 );

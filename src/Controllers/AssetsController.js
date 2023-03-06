@@ -5,9 +5,6 @@ const network_equipments = require("../models/network_equipments");
 const peripherals = require("../models/peripherals")
 
 
-
-
-
 const saveAllCableConnectors = async (where = {catagory: Cable_Connector}) => await Cable_Connectors.bulkCreate(array);
 const saveAllComuters = async (where = {catagory: computer}) => await computers.bulkCreate(array);
 const saveAllMonitors = async (where = {catagory: monitor}) => await Monitors.bulkCreate(array);
@@ -27,7 +24,6 @@ const findAllNetworkEquipments = async (limit = 6, offset = 0, cat="", where = {
 const findAllPerperals = async (limit = 6, offset = 0, cat="", where = {}) => await peripherals.findAndCountAll({limit, offset, where: {catagory: peripheral}});
 
 const findAllAssetsTest = async () => await computers.findAll({where: {model: "MacBook Pro"}});
-
 
 
 module.exports = {

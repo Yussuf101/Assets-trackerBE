@@ -12,7 +12,7 @@ const Peripherals = connection.define(
         Asset_label: {
             type: DataTypes.STRING(255),
             allowNull: false,
-            unique: true,
+            unique: "Asset_label",
         },
         Assets_category: {
             type: DataTypes.STRING(255),
@@ -26,6 +26,23 @@ const Peripherals = connection.define(
         Model: {
             type: DataTypes.STRING(255),
             allowNull: false,
+        },
+        user_id: {
+          type: DataTypes.INTEGER,
+          foreignKey: true,
+          unique: "User_id",
+        },
+        Computer_id: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          foreignKey: true,
+          unique: "Computer_id",
+        },
+        Monitor_id: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          foreignKey: true,
+          unique: "Monitor_id",
         },
         State: {
             type: DataTypes.STRING(255),
@@ -106,6 +123,30 @@ const Peripherals = connection.define(
               using: "BTREE",
               fields: [
                 { name: "Model" },
+              ]
+            },
+            {
+              name: "PRIMARY",
+              unique: "User_id",
+              using: "BTREE",
+              fields: [
+                { name: "User_id" },
+              ]
+            },
+            {
+              name: "PRIMARY",
+              unique: "Computer_id",
+              using: "BTREE",
+              fields: [
+                { name: "Computer_id" },
+              ]
+            },
+            {
+              name: "PRIMARY",
+              unique: "Monitor_id",
+              using: "BTREE",
+              fields: [
+                { name: "Monitor_id" },
               ]
             },
             {

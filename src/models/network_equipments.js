@@ -12,12 +12,12 @@ const Network_Equipments = connection.define(
         Asset_label: {
             type: DataTypes.STRING(255),
             allowNull: false,
-            unique: true,
+            unique: "Asset_label",
         },
         Assets_category: {
             type: DataTypes.STRING(255),
             allowNull: false,
-            unique: false,
+            unique: "Network Equipment",
         },
         Assets_Location:{
             type: DataTypes.STRING(255),
@@ -26,6 +26,21 @@ const Network_Equipments = connection.define(
         Model: {
             type: DataTypes.STRING(255),
             allowNull: false,
+        },
+        CableConnector_id: {
+          type: DataTypes.INTEGER,
+          foreignKey: true,
+          unique:"CableConnector",
+        },
+        Monitor_id: {
+          type: DataTypes.INTEGER,
+          foreignKey: true,
+          unique: "Monitor_id",
+        },
+        Computer_id: {
+          type: DataTypes.INTEGER,
+          foreignKey: true,
+          unique: "Computer_id",
         },
         State: {
             type: DataTypes.STRING(255),
@@ -86,7 +101,7 @@ const Network_Equipments = connection.define(
             },
             {
               name: "Assets_Category",
-              unique: false,
+              unique: "Network Equipment",
               using: "BTREE",
               fields: [
                 { name: "Assets_Category" },
@@ -106,6 +121,30 @@ const Network_Equipments = connection.define(
               using: "BTREE",
               fields: [
                 { name: "Model" },
+              ]
+            },
+            {
+              name: "PRIMARY",
+              unique: "CableConnector_id",
+              using: "BTREE",
+              fields: [
+                { name: "CableConnector_id" },
+              ]
+            },
+            {
+              name: "PRIMARY",
+              unique: "Monitor_id",
+              using: "BTREE",
+              fields: [
+                { name: "Monitor_id" },
+              ]
+            },
+            {
+              name: "PRIMARY",
+              unique: "Computer_id",
+              using: "BTREE",
+              fields: [
+                { name: "Computer_id" },
               ]
             },
             {
